@@ -1,0 +1,47 @@
+.formContainer {
+  height: 752px;
+  width: 500px;
+  /* border: 1px solid black; */
+  margin-left: 350px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.titleContainer {
+  height: 74px;
+  width: auto;
+  background-color: #5578f4;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  border-radius: 5px 5px 0 0;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 30px;
+}
+.formName {
+  color: white;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+.backIcon {
+  height: 20px;
+  width: 12.35px;
+  cursor: pointer;
+}
+.editIcon {
+  height: 18px;
+  width: 18px;
+  cursor: pointer;
+}
+.fields {
+  display: flex;
+  flex-direction: column;
+
+  height: 678px;
+}
+.placeHolderText {
+  font-weight: 700;
+  font-size: 2em;
+  margin: auto;
+}

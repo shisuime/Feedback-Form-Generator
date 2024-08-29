@@ -1,0 +1,11 @@
+.formsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 80px;
+  padding-top: 120px;
+  padding-left: 30px;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  position: relative;
+  height: 100vh;
+}

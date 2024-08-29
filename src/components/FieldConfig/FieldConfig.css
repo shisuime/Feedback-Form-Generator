@@ -1,0 +1,40 @@
+.FieldConfigContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%; /* Ensure it covers the entire container */
+  background-color: white;
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.configHeader {
+  padding-top: 10px;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.configBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.configBody {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.cancelButton {
+  height: 42px;
+  width: 82px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+}
