@@ -1,15 +1,14 @@
 import "./FieldConfig.css";
 import backBlack from "../../assets/backBlack.png";
 import useAppStore from "../../store/appStore";
-import Configs from "../Configs/Configs";
 
 const FieldConfig = () => {
-  const { fieldConfigState, fieldConfigStateHandler } = useAppStore(
-    (state) => ({
+  const { fieldConfigState, fieldConfigStateHandler, fieldConfigType } =
+    useAppStore((state) => ({
       fieldConfigState: state.fieldConfigState,
       fieldConfigStateHandler: state.fieldConfigStateHandler,
-    })
-  );
+      fieldConfigType: state.fieldConfigType,
+    }));
 
   if (!fieldConfigState) {
     return null;
@@ -27,9 +26,7 @@ const FieldConfig = () => {
         <div>Back to Add Fields</div>
       </div>
 
-      <div className="configBody">
-        <Configs />
-      </div>
+      <div className="configBody">{fieldConfigType}</div>
 
       <div className="buttonContainer" style={{ paddingLeft: "20px" }}>
         <button className="saveButton">SAVE</button>

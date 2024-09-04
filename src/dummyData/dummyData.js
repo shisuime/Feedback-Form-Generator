@@ -19,4 +19,12 @@ export const dummyData = [
     id: 5,
     data: "kuchbhi5",
   },
+  {
+    id: 6,
+    data: "kuchbhi6",
+  },
+  {
+    id: 7,
+    data: "kuchbhi7",
+  },
 ];

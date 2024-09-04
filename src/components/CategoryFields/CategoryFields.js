@@ -8,6 +8,11 @@ import singleLine from "../../assets/singleLine.png";
 import radioButton from "../../assets/radioButtons.png";
 import numericRating from "../../assets/numericRating.png";
 import categories from "../../assets/categories.png";
+import TextArea from "../TextArea/TextArea";
+import NumericRating from "../NumericRating/NumericRating";
+import StarRating from "../StartRating/StarRating";
+import SmileRating from "../SmileRating/SmileRating";
+import RadioButton from "../RadioButton/RadioButton";
 
 import ToggleableInput from "../../common/ToggleableInput/ToggleableInput.js";
 
@@ -17,49 +22,64 @@ const categoriesArray = [
     object: textArea,
     height: "16.03px",
     width: "20.25px",
+    component: <TextArea />,
   },
   {
     name: "Numeric rating",
     object: numericRating,
     height: "9px",
     width: "32.9px",
+    component: <NumericRating />,
   },
   {
     name: "Star rating",
     object: star,
     height: "17.81px",
     width: "18.75px",
+    component: <StarRating />,
   },
   {
     name: "Smiley rating",
     object: smile,
     height: "18.75px",
     width: "18.75px",
+    component: <SmileRating />,
   },
   {
     name: "Single line input",
     object: singleLine,
     height: "10.07px",
     width: "22.5px",
+    component: <TextArea />,
   },
   {
     name: "Radio button",
     object: radioButton,
     height: "20.25px",
     width: "18.56px",
+    component: <RadioButton />,
   },
   {
     name: "Categories",
     object: categories,
     height: "20.25px",
     width: "22.71px",
+    component: <RadioButton />,
   },
 ];
 
 const CategoryFields = () => {
-  const { fieldConfigStateHandler } = useAppStore((state) => ({
-    fieldConfigStateHandler: state.fieldConfigStateHandler,
-  }));
+  const { fieldConfigStateHandler, setFieldConfigType } = useAppStore(
+    (state) => ({
+      fieldConfigStateHandler: state.fieldConfigStateHandler,
+      setFieldConfigType: state.setFieldConfigType,
+    })
+  );
+
+  const plusButtonHandler = (component) => {
+    fieldConfigStateHandler();
+    setFieldConfigType(component);
+  };
 
   return (
     <div className="categoryFieldsContainer">
@@ -79,7 +99,7 @@ const CategoryFields = () => {
               className="strictPlus"
               src={strictPlus}
               alt={"plus"}
-              onClick={fieldConfigStateHandler}
+              onClick={() => plusButtonHandler(e.component)}
             />
           </div>
         ))}
