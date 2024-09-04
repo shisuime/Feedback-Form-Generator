@@ -3,8 +3,15 @@ import back from "../../assets/back.png";
 import edit from "../../assets/edit.png";
 import useAppStore from "../../store/appStore";
 import { useNavigate } from "react-router-dom";
+import TestComponent from "../TestComponent/TestComponent";
+import { dummyData } from "../../dummyData/dummyData";
 
 const Form = () => {
+  const dummyArray = [];
+  dummyData.forEach((element) =>
+    dummyArray.push(<TestComponent data={element.data} />)
+  );
+
   const navigate = useNavigate();
 
   const { formName, modalStateHandler, setSaveAndpublishBtnState } =
@@ -37,7 +44,9 @@ const Form = () => {
         />
       </div>
       <div className="fields">
-        <div className="placeHolderText">Add Field</div>
+        {/* <div className="placeHolderText">Add Field</div>
+         */}
+        {dummyArray.map((e) => e)}
       </div>
     </div>
   );

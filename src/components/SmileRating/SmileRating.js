@@ -1,18 +1,18 @@
-import "./NumericRating.css";
+import "./SmileRating.css";
 import GenericInput from "../../common/GenericInput/GenericInput.js";
 import ToggleableInput from "../../common/ToggleableInput/ToggleableInput.js";
 import GenericSelect from "../../common/GenericSelect/GenericSelect.js";
 
-const NumericRating = () => {
+const SmileRating = () => {
   return (
-    <div className="numericRatingContainer">
+    <div className="smileRatingContainer">
       <GenericInput
         placeholder="Would you like to add a comment?"
         className={"type4"}
         label={"Label"}
         labelClassname={"labelType2"}
       />
-      <div>How many boxes do you want?</div>
+      <div>How many stars do you want?</div>
       <GenericSelect length={10} />
       <ToggleableInput
         type={"type2"}
@@ -25,4 +25,4 @@ const NumericRating = () => {
   );
 };
 
-export default NumericRating;
+export default SmileRating;

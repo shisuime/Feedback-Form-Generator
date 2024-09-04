@@ -8,9 +8,8 @@ import singleLine from "../../assets/singleLine.png";
 import radioButton from "../../assets/radioButtons.png";
 import numericRating from "../../assets/numericRating.png";
 import categories from "../../assets/categories.png";
-import { Switch } from "@mui/material";
-import GenericInput from "../../common/GenericInput/GenericInput.js";
-import { useState } from "react";
+
+import ToggleableInput from "../../common/ToggleableInput/ToggleableInput.js";
 
 const categoriesArray = [
   {
@@ -62,24 +61,6 @@ const CategoryFields = () => {
     fieldConfigStateHandler: state.fieldConfigStateHandler,
   }));
 
-  const label = { inputProps: { "aria-label": "Switch demo" } };
-
-  const [isUrlConditionsEnabled, setIsUrlConditionsEnabled] = useState(true);
-  const [isDateConditionsEnabled, setIsDateConditionsEnabled] = useState(true);
-  const [isTimeConditionsEnabled, setIsTimeConditionsEnabled] = useState(true);
-
-  const handleUrlConditionsChange = (event) => {
-    setIsUrlConditionsEnabled(event.target.checked);
-  };
-
-  const handleDateConditionsChange = (event) => {
-    setIsDateConditionsEnabled(event.target.checked);
-  };
-
-  const handleTimeConditionsChange = (event) => {
-    setIsTimeConditionsEnabled(event.target.checked);
-  };
-
   return (
     <div className="categoryFieldsContainer">
       <div className="addFieldsText">Add Fields</div>
@@ -105,52 +86,31 @@ const CategoryFields = () => {
       </div>
       <div className="isVisibleLogic">
         <div className="conditionContainer">
-          <div className="textAndToggle">
-            <div className="conditionText">Show based on URL conditions</div>
-            <Switch
-              {...label}
-              checked={isUrlConditionsEnabled}
-              onChange={handleUrlConditionsChange}
-            />
-          </div>
-          <GenericInput
-            placeholder="http://"
-            className={"type2"}
-            disabled={!isUrlConditionsEnabled}
+          <ToggleableInput
+            placeholder={"http://"}
+            type={"type2"}
+            initialState={false}
+            text={"Show based on URL conditions"}
           />
         </div>
         <div className="conditionContainer">
-          <div className="textAndToggle">
-            <div className="conditionText">Show specific dates</div>
-            <Switch
-              {...label}
-              checked={isDateConditionsEnabled}
-              onChange={handleDateConditionsChange}
-            />
-          </div>
-          <GenericInput
-            placeholder="MM/DD/YY"
-            label={"Start Date"}
+          <ToggleableInput
+            placeholder={"MM / DD / YY"}
+            type={"type3"}
+            initialState={false}
+            text={"Show at specific dates"}
+            labelvalue={"Start Date"}
             labelClassname={"labelType1"}
-            className={"type3"}
-            disabled={!isDateConditionsEnabled}
           />
         </div>
         <div className="conditionContainer">
-          <div className="textAndToggle">
-            <div className="conditionText">Show specific time</div>
-            <Switch
-              {...label}
-              checked={isTimeConditionsEnabled}
-              onChange={handleTimeConditionsChange}
-            />
-          </div>
-          <GenericInput
-            placeholder="hh:mm aa"
-            label={"Start Time"}
+          <ToggleableInput
+            placeholder={"hh : mm : aa"}
+            type={"type3"}
+            initialState={false}
+            text={"Show at specific time"}
+            labelvalue={"Start Time"}
             labelClassname={"labelType1"}
-            className={"type3"}
-            disabled={!isTimeConditionsEnabled}
           />
         </div>
       </div>

@@ -21,6 +21,9 @@ input {
 .type1 {
   border: none;
   border-bottom: 1px solid #ccc;
+  padding-left: 10px;
+
+  height: 30px;
 }
 
 .type2 {
@@ -42,6 +45,12 @@ input {
   /* border-radius: 5px; */
   height: 26px;
   /* padding-left: 10px; */
+}
+.type5 {
+  border-bottom: 1px solid #ccc;
+  /* padding-left: 10px; */
+  width: 100px;
+  height: 10px;
 }
 
 .labelType1 {
