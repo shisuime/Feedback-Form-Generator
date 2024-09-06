@@ -5,13 +5,15 @@ import useAppStore from "../../store/appStore";
 import { useNavigate } from "react-router-dom";
 import TestComponent from "../TestComponent/TestComponent";
 import { dummyData } from "../../dummyData/dummyData";
+import { closestCorners, DndContext } from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { useState } from "react";
 
 const Form = () => {
-  const dummyArray = [];
-  dummyData.forEach((element) =>
-    dummyArray.push(<TestComponent data={element.data} />)
-  );
-
   const navigate = useNavigate();
 
   const { formName, modalStateHandler, setSaveAndpublishBtnState } =
@@ -21,9 +23,26 @@ const Form = () => {
       setSaveAndpublishBtnState: state.setSaveAndpublishBtnState,
     }));
 
+  const [formElements, setFormElements] = useState(dummyData);
+  console.log(formElements);
+
   const backButtonHandler = () => {
     navigate("/");
     setSaveAndpublishBtnState(false);
+  };
+
+  const getElementId = (id) => formElements.findIndex((e) => e.id === id);
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (active.id === over.id) return;
+
+    setFormElements((formElements) => {
+      const originalPos = getElementId(active.id);
+      const newPos = getElementId(over.id);
+
+      return arrayMove(formElements, originalPos, newPos);
+    });
   };
 
   return (
@@ -46,7 +65,19 @@ const Form = () => {
       <div className="fields">
         {/* <div className="placeHolderText">Add Field</div>
          */}
-        {dummyArray.map((e) => e)}
+        <DndContext
+          onDragEnd={handleDragEnd}
+          collisionDetection={closestCorners}
+        >
+          <SortableContext
+            items={formElements}
+            strategy={verticalListSortingStrategy}
+          >
+            {formElements?.map((e) => (
+              <TestComponent data={e.data} key={e.id} id={e.id} />
+            ))}
+          </SortableContext>
+        </DndContext>
       </div>
     </div>
   );
