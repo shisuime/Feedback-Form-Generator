@@ -11,20 +11,34 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Form = () => {
   const navigate = useNavigate();
 
-  const { formName, modalStateHandler, setSaveAndpublishBtnState } =
-    useAppStore((state) => ({
-      formName: state.formName,
-      modalStateHandler: state.modalStateHandler,
-      setSaveAndpublishBtnState: state.setSaveAndpublishBtnState,
-    }));
+  const {
+    formName,
+    modalStateHandler,
+    setSaveAndpublishBtnState,
+    fieldData,
+    setFieldData,
+  } = useAppStore((state) => ({
+    formName: state.formName,
+    modalStateHandler: state.modalStateHandler,
+    setSaveAndpublishBtnState: state.setSaveAndpublishBtnState,
+    fieldData: state.fieldData,
+    setFieldData: state.setFieldData,
+  }));
 
-  const [formElements, setFormElements] = useState(dummyData);
-  console.log(formElements);
+  const [formElements, setFormElements] = useState([]);
+
+  useEffect(() => {
+    if (fieldData.id && fieldData.data.name) {
+      setFormElements((prev) => [...prev, fieldData]);
+    }
+  }, [fieldData]);
+
+  console.log(formElements, "checking the additional element");
 
   const backButtonHandler = () => {
     navigate("/");

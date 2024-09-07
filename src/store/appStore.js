@@ -21,6 +21,24 @@ const useAppStore = create((set) => ({
 
   fieldConfigType: null,
   setFieldConfigType: (component) => set({ fieldConfigType: component }),
+
+  fieldData: {
+    id: null,
+    data: {
+      name: null,
+    },
+  },
+  setFieldData: (id, name) =>
+    set((state) => ({
+      fieldData: {
+        ...state.fieldData,
+        id: id,
+        data: {
+          ...state.fieldData.data,
+          name: name,
+        },
+      },
+    })),
 }));
 
 export default useAppStore;

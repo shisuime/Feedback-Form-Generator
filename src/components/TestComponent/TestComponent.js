@@ -3,6 +3,7 @@ import { CSS } from "@dnd-kit/utilities";
 import "./TestComponent.css";
 
 const TestComponent = ({ data, id }) => {
+  // console.log(data, id, "test component");
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -22,7 +23,7 @@ const TestComponent = ({ data, id }) => {
       {...listeners}
       style={style}
     >
-      {data}
+      {data.name}
     </div>
   );
 };
