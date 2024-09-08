@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
 }
 
 input {
@@ -51,6 +51,20 @@ input {
   /* padding-left: 10px; */
   width: 100px;
   height: 10px;
+}
+.type6 {
+  border: 1px solid #bcbcbc;
+  border-radius: 5px;
+  height: 106px;
+  width: 445px;
+  /* padding-left: 20px; */
+}
+.type7 {
+  border: 1px solid #bcbcbc;
+  border-radius: 5px;
+  height: 30px;
+  width: 445px;
+  /* padding-left: 20px; */
 }
 
 .labelType1 {

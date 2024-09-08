@@ -14,7 +14,7 @@ const FieldConfig = () => {
     fieldConfigType: state.fieldConfigType,
     setFieldData: state.setFieldData,
   }));
-
+  console.log(fieldConfigType, "type checking");
   if (!fieldConfigState) {
     return null;
   }
@@ -23,9 +23,14 @@ const FieldConfig = () => {
       "id_" + Math.random().toString(36).replace(/^.{2}/, "").slice(0, length)
     );
   };
-  const saveBtnHandler = () => {
+  const saveBtnHandler = (name) => {
     const ranId = generateRandomId();
-    setFieldData(ranId, "hey");
+    setFieldData(ranId, name);
+    fieldConfigStateHandler();
+  };
+
+  const cancelHandler = () => {
+    fieldConfigStateHandler();
   };
 
   return (
@@ -40,13 +45,18 @@ const FieldConfig = () => {
         <div>Back to Add Fields</div>
       </div>
 
-      <div className="configBody">{fieldConfigType}</div>
+      <div className="configBody">{fieldConfigType?.component}</div>
 
       <div className="buttonContainer" style={{ paddingLeft: "20px" }}>
-        <button className="saveButton" onClick={() => saveBtnHandler()}>
+        <button
+          className="saveButton"
+          onClick={() => saveBtnHandler(fieldConfigType?.name)}
+        >
           SAVE
         </button>
-        <button className="cancelButton">CANCEL</button>
+        <button className="cancelButton" onClick={cancelHandler}>
+          CANCEL
+        </button>
       </div>
     </div>
   );

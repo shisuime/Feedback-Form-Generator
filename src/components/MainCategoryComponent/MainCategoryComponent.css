@@ -1,0 +1,26 @@
+.boxContainer {
+  width: 450px;
+  display: flex;
+}
+.box {
+  height: 35px;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #bcbcbc;
+  border-radius: 2px;
+}
+.starContainer {
+  width: 450px;
+  display: flex;
+  gap: 5px;
+}
+.starIcon {
+  height: 28px;
+  width: 26px;
+}
+.smileIcon {
+  height: 40px;
+  width: 40px;
+}

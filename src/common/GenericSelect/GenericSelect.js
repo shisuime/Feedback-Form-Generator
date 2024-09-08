@@ -7,8 +7,10 @@ const GenericSelect = ({ length }) => {
   return (
     <>
       <Select value={value} onChange={(e) => setValue(e.target.value)}>
-        {dummyarray.map((event) => (
-          <MenuItem value={event}>{event}</MenuItem>
+        {dummyarray.map((event, index) => (
+          <MenuItem key={index} value={event}>
+            {event}
+          </MenuItem>
         ))}
       </Select>
     </>

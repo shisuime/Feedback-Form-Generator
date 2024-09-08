@@ -1,6 +1,9 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import "./TestComponent.css";
+import editIconBlack from "../../assets/editIconBlack.png";
+import trashBlack from "../../assets//trashBlack.png";
+import MainCategoryComponent from "../MainCategoryComponent/MainCategoryComponent";
 
 const TestComponent = ({ data, id }) => {
   // console.log(data, id, "test component");
@@ -23,7 +26,12 @@ const TestComponent = ({ data, id }) => {
       {...listeners}
       style={style}
     >
-      {data.name}
+      <div className="commentText">comment here</div>
+      <MainCategoryComponent name={data.name} />
+      <div className="formsButtonsContainer">
+        <img src={editIconBlack} className="editIconBlack" alt="none" />
+        <img src={trashBlack} className="trashIcon" alt="none" />
+      </div>
     </div>
   );
 };

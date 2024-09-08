@@ -19,8 +19,18 @@ const useAppStore = create((set) => ({
   fieldConfigStateHandler: () =>
     set((state) => ({ fieldConfigState: !state.fieldConfigState })),
 
-  fieldConfigType: null,
-  setFieldConfigType: (component) => set({ fieldConfigType: component }),
+  fieldConfigType: {
+    name: null,
+    component: null,
+  },
+  setFieldConfigType: (name, component) =>
+    set((state) => ({
+      fieldConfigType: {
+        ...state.fieldConfigType,
+        name: name,
+        component: component,
+      },
+    })),
 
   fieldData: {
     id: null,

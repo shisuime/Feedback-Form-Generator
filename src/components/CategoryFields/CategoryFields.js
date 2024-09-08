@@ -76,9 +76,9 @@ const CategoryFields = () => {
     })
   );
 
-  const plusButtonHandler = (component) => {
+  const plusButtonHandler = (name, component) => {
     fieldConfigStateHandler();
-    setFieldConfigType(component);
+    setFieldConfigType(name, component);
   };
 
   return (
@@ -99,7 +99,7 @@ const CategoryFields = () => {
               className="strictPlus"
               src={strictPlus}
               alt={"plus"}
-              onClick={() => plusButtonHandler(e.component)}
+              onClick={() => plusButtonHandler(e.name, e.component)}
             />
           </div>
         ))}

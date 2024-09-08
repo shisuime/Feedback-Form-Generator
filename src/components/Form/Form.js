@@ -34,6 +34,9 @@ const Form = () => {
 
   useEffect(() => {
     if (fieldData.id && fieldData.data.name) {
+      if (formElements.length === 7) {
+        return;
+      }
       setFormElements((prev) => [...prev, fieldData]);
     }
   }, [fieldData]);
