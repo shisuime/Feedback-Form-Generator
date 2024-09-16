@@ -6,6 +6,8 @@ import smile2 from "../../assets/smile2.png";
 import smile3 from "../../assets/smile3.png";
 import smile4 from "../../assets/smile4.png";
 import smile5 from "../../assets/smile5.png";
+import RadiobtnComponent from "../../common/RadiobtnComponent/RadiobtnComponent.js";
+import CustomCategoriesComponent from "../../common/CustomCaretogiesComponent/CustomCategoriesComponent.js";
 
 const smileArray = [
   { img: smile1 },
@@ -16,8 +18,23 @@ const smileArray = [
 ];
 
 const MainCategoryComponent = ({ name }) => {
-  if (name === "Textarea") return <GenericInput className={"type6"} />;
-  if (name === "Single line input") return <GenericInput className={"type7"} />;
+  // Handle change event for radio buttons
+
+  if (name === "Textarea")
+    return (
+      <GenericInput
+        className={"type6"}
+        disabled={name === "Textarea" ? true : false}
+        style
+      />
+    );
+  if (name === "Single line input")
+    return (
+      <GenericInput
+        className={"type7"}
+        disabled={name === "Single line input" ? true : false}
+      />
+    );
   if (name === "Numeric rating")
     return (
       <div className="boxContainer">
@@ -41,6 +58,20 @@ const MainCategoryComponent = ({ name }) => {
           <img src={e.img} className="smileIcon" alt="none" />
         ))}
       </div>
+    );
+  if (name === "Radio button")
+    return (
+      <div className="custonRadioButtonsContaier">
+        <RadiobtnComponent option1={"hi"} option2={"hi2"} option3={"hi3"} />
+      </div>
+    );
+  if (name === "Categories")
+    return (
+      <CustomCategoriesComponent
+        option1={"hdwai"}
+        option2={"hdwadi2"}
+        option3={"hdwadi3"}
+      />
     );
 };
 

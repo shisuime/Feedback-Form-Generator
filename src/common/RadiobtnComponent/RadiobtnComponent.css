@@ -1,0 +1,43 @@
+.radio-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.radio-circle {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: border-color 0.3s;
+}
+
+.radio-circle.selected {
+  border-color: blue;
+}
+
+.radio-inner-circle {
+  width: 10px;
+  height: 10px;
+  background-color: blue;
+  border-radius: 50%;
+  display: none;
+}
+
+.radio-circle.selected .radio-inner-circle {
+  display: block;
+}
+
+.radio-label {
+  font-size: 16px;
+}

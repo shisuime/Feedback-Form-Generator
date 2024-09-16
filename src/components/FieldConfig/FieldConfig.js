@@ -8,13 +8,15 @@ const FieldConfig = () => {
     fieldConfigStateHandler,
     fieldConfigType,
     setFieldData,
+    dataFromFields,
   } = useAppStore((state) => ({
     fieldConfigState: state.fieldConfigState,
     fieldConfigStateHandler: state.fieldConfigStateHandler,
     fieldConfigType: state.fieldConfigType,
     setFieldData: state.setFieldData,
+    dataFromFields: state.dataFromFields,
   }));
-  console.log(fieldConfigType, "type checking");
+  // console.log(fieldConfigType, "type checking");
   if (!fieldConfigState) {
     return null;
   }
@@ -23,9 +25,9 @@ const FieldConfig = () => {
       "id_" + Math.random().toString(36).replace(/^.{2}/, "").slice(0, length)
     );
   };
-  const saveBtnHandler = (name) => {
+  const saveBtnHandler = (name, label) => {
     const ranId = generateRandomId();
-    setFieldData(ranId, name);
+    setFieldData(ranId, name, label);
     fieldConfigStateHandler();
   };
 
@@ -50,7 +52,9 @@ const FieldConfig = () => {
       <div className="buttonContainer" style={{ paddingLeft: "20px" }}>
         <button
           className="saveButton"
-          onClick={() => saveBtnHandler(fieldConfigType?.name)}
+          onClick={() =>
+            saveBtnHandler(fieldConfigType?.name, dataFromFields?.inputData)
+          }
         >
           SAVE
         </button>

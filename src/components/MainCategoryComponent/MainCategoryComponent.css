@@ -24,3 +24,9 @@
   height: 40px;
   width: 40px;
 }
+.custonRadioButtonsContaier {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 450px;
+}

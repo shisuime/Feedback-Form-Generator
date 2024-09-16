@@ -41,7 +41,7 @@ const Form = () => {
     }
   }, [fieldData]);
 
-  console.log(formElements, "checking the additional element");
+  // console.log(formElements, "checking the additional element");
 
   const backButtonHandler = () => {
     navigate("/");
@@ -60,6 +60,10 @@ const Form = () => {
 
       return arrayMove(formElements, originalPos, newPos);
     });
+  };
+
+  const handleDeleteBtn = (id) => {
+    setFormElements(formElements.filter((e) => e.id !== id));
   };
 
   return (
@@ -91,7 +95,12 @@ const Form = () => {
             strategy={verticalListSortingStrategy}
           >
             {formElements?.map((e) => (
-              <TestComponent data={e.data} key={e.id} id={e.id} />
+              <TestComponent
+                data={e.data}
+                key={e.id}
+                id={e.id}
+                deleteFunc={handleDeleteBtn}
+              />
             ))}
           </SortableContext>
         </DndContext>

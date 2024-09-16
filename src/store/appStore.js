@@ -32,13 +32,27 @@ const useAppStore = create((set) => ({
       },
     })),
 
+  dataFromFields: {
+    inputData: "",
+    errorData: null,
+  },
+  setdataFromFields: (inputValue) =>
+    set((state) => ({
+      dataFromFields: {
+        inputData: inputValue,
+        errorData: null,
+      },
+    })),
+
   fieldData: {
     id: null,
     data: {
       name: null,
+      label: null,
+      optionCount: null,
     },
   },
-  setFieldData: (id, name) =>
+  setFieldData: (id, name, label, optionCount) =>
     set((state) => ({
       fieldData: {
         ...state.fieldData,
@@ -46,6 +60,8 @@ const useAppStore = create((set) => ({
         data: {
           ...state.fieldData.data,
           name: name,
+          label: label,
+          optionCount: optionCount,
         },
       },
     })),

@@ -42,6 +42,7 @@
   align-items: center;
   gap: 20px;
   padding-top: 15px;
+  padding-bottom: 14px;
   overflow-y: scroll;
   scrollbar-width: none;
 }

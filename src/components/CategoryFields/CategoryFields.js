@@ -13,74 +13,85 @@ import NumericRating from "../NumericRating/NumericRating";
 import StarRating from "../StartRating/StarRating";
 import SmileRating from "../SmileRating/SmileRating";
 import RadioButton from "../RadioButton/RadioButton";
-
 import ToggleableInput from "../../common/ToggleableInput/ToggleableInput.js";
 
-const categoriesArray = [
-  {
-    name: "Textarea",
-    object: textArea,
-    height: "16.03px",
-    width: "20.25px",
-    component: <TextArea />,
-  },
-  {
-    name: "Numeric rating",
-    object: numericRating,
-    height: "9px",
-    width: "32.9px",
-    component: <NumericRating />,
-  },
-  {
-    name: "Star rating",
-    object: star,
-    height: "17.81px",
-    width: "18.75px",
-    component: <StarRating />,
-  },
-  {
-    name: "Smiley rating",
-    object: smile,
-    height: "18.75px",
-    width: "18.75px",
-    component: <SmileRating />,
-  },
-  {
-    name: "Single line input",
-    object: singleLine,
-    height: "10.07px",
-    width: "22.5px",
-    component: <TextArea />,
-  },
-  {
-    name: "Radio button",
-    object: radioButton,
-    height: "20.25px",
-    width: "18.56px",
-    component: <RadioButton />,
-  },
-  {
-    name: "Categories",
-    object: categories,
-    height: "20.25px",
-    width: "22.71px",
-    component: <RadioButton />,
-  },
-];
-
 const CategoryFields = () => {
-  const { fieldConfigStateHandler, setFieldConfigType } = useAppStore(
-    (state) => ({
-      fieldConfigStateHandler: state.fieldConfigStateHandler,
-      setFieldConfigType: state.setFieldConfigType,
-    })
-  );
-
+  const {
+    fieldConfigStateHandler,
+    setFieldConfigType,
+    dataFromFields,
+    setdataFromFields,
+  } = useAppStore((state) => ({
+    fieldConfigStateHandler: state.fieldConfigStateHandler,
+    setFieldConfigType: state.setFieldConfigType,
+    dataFromFields: state.dataFromFields,
+    setdataFromFields: state.setdataFromFields,
+  }));
+  // console.log(dataFromFields, "cehcking state");
   const plusButtonHandler = (name, component) => {
     fieldConfigStateHandler();
     setFieldConfigType(name, component);
   };
+  const categoriesArray = [
+    {
+      name: "Textarea",
+      object: textArea,
+      height: "16.03px",
+      width: "20.25px",
 
+      component: (
+        <TextArea value={dataFromFields} setValue={setdataFromFields} />
+      ),
+    },
+    {
+      name: "Numeric rating",
+      object: numericRating,
+      height: "9px",
+      width: "32.9px",
+
+      component: <NumericRating />,
+    },
+    {
+      name: "Star rating",
+      object: star,
+      height: "17.81px",
+      width: "18.75px",
+
+      component: <StarRating />,
+    },
+    {
+      name: "Smiley rating",
+      object: smile,
+      height: "18.75px",
+      width: "18.75px",
+
+      component: <SmileRating />,
+    },
+    {
+      name: "Single line input",
+      object: singleLine,
+      height: "10.07px",
+      width: "22.5px",
+
+      component: <TextArea />,
+    },
+    {
+      name: "Radio button",
+      object: radioButton,
+      height: "20.25px",
+      width: "18.56px",
+
+      component: <RadioButton />,
+    },
+    {
+      name: "Categories",
+      object: categories,
+      height: "20.25px",
+      width: "22.71px",
+
+      component: <RadioButton />,
+    },
+  ];
   return (
     <div className="categoryFieldsContainer">
       <div className="addFieldsText">Add Fields</div>
