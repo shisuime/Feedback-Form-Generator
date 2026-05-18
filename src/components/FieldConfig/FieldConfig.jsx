@@ -2,21 +2,16 @@ import backBlack from "../../assets/backBlack.png";
 import useAppStore from "../../store/appStore";
 
 const FieldConfig = () => {
- // Pull each property individually for stable references
-const fieldConfigState = useAppStore((state) => state.fieldConfigState);
-const fieldConfigStateHandler = useAppStore((state) => state.fieldConfigStateHandler);
-const fieldConfigType = useAppStore((state) => state.fieldConfigType);
-const setFieldData = useAppStore((state) => state.setFieldData);
-const dataFromFields = useAppStore((state) => state.dataFromFields);
-// const addField = useAppStore((state) => state.addField); // You'll likely need this new action too
+  const fieldConfigState = useAppStore((state) => state.fieldConfigState);
+  const fieldConfigStateHandler = useAppStore((state) => state.fieldConfigStateHandler);
+  const fieldConfigType = useAppStore((state) => state.fieldConfigType);
+  const setFieldData = useAppStore((state) => state.setFieldData);
+  const dataFromFields = useAppStore((state) => state.dataFromFields);
 
   if (!fieldConfigState) return null;
 
   const generateRandomId = (length = 8) => {
-    return (
-      "id_" +
-      Math.random().toString(36).replace(/^.{2}/, "").slice(0, length)
-    );
+    return "id_" + Math.random().toString(36).replace(/^.{2}/, "").slice(0, length);
   };
 
   const saveBtnHandler = (name, label) => {
@@ -25,50 +20,46 @@ const dataFromFields = useAppStore((state) => state.dataFromFields);
     fieldConfigStateHandler();
   };
 
-  const cancelHandler = () => {
-    fieldConfigStateHandler();
-  };
-
   return (
-    <div className="absolute top-0 right-0 h-full w-full bg-white shadow-[-4px_0_8px_rgba(0,0,0,0.1)] z-30 flex flex-col gap-8">
+    // Fixed container bounding context safely matches exact dimensions inside the parent container shell
+    <div className="absolute inset-0 bg-white z-30 flex flex-col justify-between shadow-xl animate-in slide-in-from-right duration-200">
+      dasgrthfyjukilj
+      {/* Content Scroller Layout */}
+      <div className="flex-1 overflow-y-auto p-5 space-y-6">
+        
+        {/* Header navigation bar layout */}
+        <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
+          <img
+            src={backBlack}
+            alt="back"
+            onClick={fieldConfigStateHandler}
+            className="cursor-pointer p-1 hover:bg-slate-100 rounded-full transition duration-150"
+          />
+          <span className="font-semibold text-sm text-slate-700">
+            Back to Fields Drawer
+          </span>
+        </div>
 
-      {/* Header */}
-      <div className="pt-3 pl-3 flex items-center gap-3">
-        <img
-          src={backBlack}
-          alt="back"
-          onClick={fieldConfigStateHandler}
-          className="cursor-pointer"
-        />
-        <div className="font-medium text-gray-700">
-          Back to Add Fields
+        {/* Form Generation Component Injector Section Container */}
+        <div className="bg-slate-50/60 p-4 rounded-lg border border-slate-100">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Field Options</h4>
+          {fieldConfigType?.component}
         </div>
       </div>
 
-      {/* Body */}
-      <div className="pl-5 flex flex-col gap-3">
-        {fieldConfigType?.component}
-      </div>
-
-      {/* Buttons */}
-      <div className="mt-auto pl-5 pb-6 flex gap-4">
+      {/* Persistent Sticky Bottom Action Toolbar Panel Control Blocks */}
+      <div className="p-4 bg-slate-50 border-t border-slate-200/80 flex items-center justify-end gap-3 shrink-0">
         <button
-          onClick={() =>
-            saveBtnHandler(
-              fieldConfigType?.name,
-              dataFromFields?.inputData
-            )
-          }
-          className="h-10.5 w-20.5 bg-white rounded-md shadow-md font-semibold hover:shadow-lg transition"
+          onClick={fieldConfigStateHandler}
+          className="h-10 px-4 bg-white border border-slate-200 text-slate-600 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-slate-100 transition shadow-xs cursor-pointer"
         >
-          SAVE
+          Cancel
         </button>
-
         <button
-          onClick={cancelHandler}
-          className="h-10.5 w-20.5 bg-white rounded-md shadow-md font-semibold hover:shadow-lg transition"
+          onClick={() => saveBtnHandler(fieldConfigType?.name, dataFromFields?.inputData)}
+          className="h-10 px-5 bg-blue-600 text-white rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-blue-700 transition shadow-sm cursor-pointer"
         >
-          CANCEL
+          Save Field
         </button>
       </div>
     </div>

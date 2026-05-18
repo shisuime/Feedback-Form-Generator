@@ -4,6 +4,7 @@ import AdminPanelpage from './pages/AdminPanelPage';
 import FormsPanel from './components/FormsPanel/FormsPanel';
 import HomePage from './pages/HomePage';
 import FormGeneration from './components/FormGeneration/FormGeneration';
+import './index.css';
 
 
 

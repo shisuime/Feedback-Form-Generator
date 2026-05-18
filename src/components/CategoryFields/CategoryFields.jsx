@@ -14,123 +14,94 @@ import SmileRating from "../SmileRating/SmileRating";
 import RadioButton from "../RadioButton/RadioButton";
 import ToggleableInput from "../../common/ToggleableInput/ToggleableInput";
 
-
 const CategoryFields = () => {
-const fieldConfigStateHandler = useAppStore((state) => state.fieldConfigStateHandler);
-const setFieldConfigType = useAppStore((state) => state.setFieldConfigType);
-const dataFromFields = useAppStore((state) => state.dataFromFields);
-const setdataFromFields = useAppStore((state) => state.setdataFromFields);
+  const fieldConfigStateHandler = useAppStore((state) => state.fieldConfigStateHandler);
+  const setFieldConfigType = useAppStore((state) => state.setFieldConfigType);
+  const dataFromFields = useAppStore((state) => state.dataFromFields);
+  const setdataFromFields = useAppStore((state) => state.setdataFromFields);
 
   const plusButtonHandler = (name, component) => {
     fieldConfigStateHandler();
     setFieldConfigType(name, component);
   };
-  // done styling
+
   const categoriesArray = [
-    {
-      name: "Textarea",
-      object: textArea,
-      component: (
-        <TextArea value={dataFromFields} setValue={setdataFromFields} />   // done styling
-      ),
-    },
-    {
-      name: "Numeric rating",
-      object: numericRating,
-      component: <NumericRating />,   // done styling
-    },
-    {
-      name: "Star rating",
-      object: star,
-      component: <StarRating />,  // done styling
-    },
-    {
-      name: "Smiley rating",
-      object: smile,
-      component: <SmileRating />,  // done styling
-    },
-    {
-      name: "Single line input",
-      object: singleLine,
-      component: <TextArea />,   // done styling
-    },
-    {
-      name: "Radio button",
-      object: radioButton,
-      component: <RadioButton />, // done styling
-    },
-    {
-      name: "Categories",
-      object: categories,
-      component: <RadioButton />, // done styling
-    },
+    { name: "Textarea", object: textArea, component: <TextArea value={dataFromFields} setValue={setdataFromFields} /> },
+    { name: "Numeric rating", object: numericRating, component: <NumericRating /> },
+    { name: "Star rating", object: star, component: <StarRating /> },
+    { name: "Smiley rating", object: smile, component: <SmileRating /> },
+    { name: "Single line input", object: singleLine, component: <TextArea /> },
+    { name: "Radio button", object: radioButton, component: <RadioButton /> },
+    { name: "Categories", object: categories, component: <RadioButton /> },
   ];
 
   return (
-    <div className="flex flex-col px-10 gap-10 h-full relative z-10">
-
-      {/* Header */}
-      <div className="text-2xl font-semibold pt-5">
-        Add Fields
+    <div className="flex flex-col space-y-8 relative z-10">
+      
+      {/* Title Section */}
+      <div>
+        <h3 className="text-lg font-bold text-slate-800 tracking-tight">Add Fields</h3>
+        <p className="text-xs text-slate-400 mt-0.5">Click plus icon to append a block onto your canvas view.</p>
       </div>
 
-      {/* Categories */}
-      <div className="flex flex-col gap-8">
+      {/* Row Element Categories Listing Field Wraps */}
+      <div className="flex flex-col border border-slate-100 rounded-xl bg-slate-50/50 p-2 divide-y divide-slate-100/70">
         {categoriesArray.map((e) => (
           <div
             key={e.name}
-            className="flex justify-between items-center"
+            className="flex justify-between items-center p-3 hover:bg-white rounded-lg transition duration-150 group"
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3.5">
               <img
                 src={e.object}
                 alt={e.name}
-                className="w-[22.25px] h-[22.25px]"
+                className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity"
               />
-              <div className="text-sm font-medium">
+              <span className="text-sm font-medium text-slate-600 group-hover:text-slate-900 transition-colors">
                 {e.name}
-              </div>
+              </span>
             </div>
 
             <img
               src={strictPlus}
               alt="plus"
-              onClick={() =>
-                plusButtonHandler(e.name, e.component)
-              }
-              className="w-[22.25px] h-[22.25px] cursor-pointer hover:scale-110 transition-transform duration-200"
+              onClick={() => plusButtonHandler(e.name, e.component)}
+              className="w-5 h-5 cursor-pointer opacity-40 hover:opacity-100 hover:scale-115 transition-all duration-150"
             />
           </div>
         ))}
       </div>
 
-      {/* Visibility Logic */}
-      <div className="flex flex-col gap-5 w-full">
+      {/* System Logic Display Parameter Section Blocks Layout */}
+      <div className="pt-4 border-t border-slate-100 flex flex-col gap-4 w-full">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Visibility Rules</h4>
+        
+        <div className="space-y-3">
+          <ToggleableInput
+            placeholder="http://"
+            type="type2"
+            initialState={false}
+            text="Show based on URL conditions"
+          />
 
-        <ToggleableInput
-          placeholder="http://"
-          type="type2"
-          initialState={false}
-          text="Show based on URL conditions"
-        />
+          <ToggleableInput
+            placeholder="MM / DD / YY"
+            type="type3"
+            initialState={false}
+            text="Show at specific dates"
+            labelvalue="Start Date"
+            labelClassname="labelType1"
+          />
 
-        <ToggleableInput
-          placeholder="MM / DD / YY"
-          type="type3"
-          initialState={false}
-          text="Show at specific dates"
-          labelvalue="Start Date"
-          labelClassname="labelType1"
-        />
-
-        <ToggleableInput
-          placeholder="hh : mm : aa"
-          type="type3"
-          initialState={false}
-          text="Show at specific time"
-          labelvalue="Start Time"
-          labelClassname="labelType1"
-        />
+          <ToggleableInput
+            placeholder="hh : mm : aa"
+            type="type3"
+            initialState={false}
+            text="Show at specific time"
+            labelvalue="Start Time"
+            labelClassname="labelType1"
+          />
+        </div>
       </div>
     </div>
   );
