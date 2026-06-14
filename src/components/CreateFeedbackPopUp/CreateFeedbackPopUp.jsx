@@ -7,9 +7,9 @@ const CreateFeedbackPopUp = () => {
   const [nameValue, setNameValue] = useState("");
   const navigate = useNavigate();
 
-  const setFormName = useAppStore((state) => state.setFormName);
-const modalStateHandler = useAppStore((state) => state.modalStateHandler);
-const setSaveAndpublishBtnState = useAppStore((state) => state.setSaveAndpublishBtnState);
+const setFormName=useAppStore(state=>state.setFormName)
+const modalStateHandler=useAppStore(state=>state.modalStateHandler)
+const setSaveAndpublishBtnState=useAppStore(state=>state.setSaveAndpublishBtnState)
 
   const createButtonHandler = () => {
     if (nameValue.trim() === "") return;

@@ -37,7 +37,7 @@ const Form = () => {
 
   return (
     // Max width and responsive margins simulate a clean floating tablet/form canvas
-    <div className="w-full max-w-md h-[75vh] min-h-[500px] rounded-xl bg-white shadow-xl flex flex-col border border-slate-200/60 overflow-hidden">
+    <div className="w-full max-w-md h-[75vh] min-h-125 rounded-xl bg-white shadow-xl flex flex-col border border-slate-200/60 overflow-hidden">
       
       {/* Header */}
       <div className="h-16 bg-blue-600 flex items-center justify-between px-6 shrink-0">
@@ -48,7 +48,7 @@ const Form = () => {
             onClick={backButtonHandler}
             className="h-4 w-auto cursor-pointer hover:scale-110 active:opacity-70 transition-transform duration-150"
           />
-          <h2 className="text-white font-bold text-lg tracking-wide truncate max-w-[240px]">
+          <h2 className="text-white font-bold text-lg tracking-wide truncate max-w-60">
             {formName || "Untitled Form"}
           </h2>
         </div>
