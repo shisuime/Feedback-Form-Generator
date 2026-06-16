@@ -1,6 +1,7 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
-const useAppStore = create((set) => ({
+const useAppStore = create(devtools((set) => ({
   modalState: false,
   modalStateHandler: () => set((state) => ({ modalState: !state.modalState })),
 
@@ -45,6 +46,6 @@ const useAppStore = create((set) => ({
     set({
       fieldData: { id, data: { name, label, optionCount } },
     }),
-}));
+})));
 
 export default useAppStore;
