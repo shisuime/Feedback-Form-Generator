@@ -14,8 +14,8 @@ import SmileRating from "../SmileRating/SmileRating";
 import RadioButton from "../RadioButton/RadioButton";
 import ToggleableInput from "../../common/ToggleableInput/ToggleableInput";
 
-const CategoryFields = () => {
-  const fieldConfigStateHandler = useAppStore((state) => state.fieldConfigStateHandler);
+const CategoryFields = ({fieldConfigStateHandler}) => {
+  // const fieldConfigStateHandler = useAppStore((state) => state.fieldConfigStateHandler);
   const setFieldConfigType = useAppStore((state) => state.setFieldConfigType);
   const dataFromFields = useAppStore((state) => state.dataFromFields);
   const setdataFromFields = useAppStore((state) => state.setdataFromFields);

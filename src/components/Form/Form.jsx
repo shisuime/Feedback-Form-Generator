@@ -1,7 +1,7 @@
+import { useParams, useNavigate } from "react-router-dom"; // Added useParams
 import back from "../../assets/back.png";
 import edit from "../../assets/edit.png";
 import useAppStore from "../../store/appStore";
-import { useNavigate } from "react-router-dom";
 import TestComponent from "../TestComponent/TestComponent";
 import { closestCorners, DndContext } from "@dnd-kit/core";
 import {
@@ -12,8 +12,10 @@ import {
 
 const Form = () => {
   const navigate = useNavigate();
+  const { id } = useParams(); 
 
-  const formName = useAppStore((state) => state.formName);
+  const formName = useAppStore((state) => state.forms[id]?.name);
+
   const modalStateHandler = useAppStore((state) => state.modalStateHandler);
   const setSaveAndpublishBtnState = useAppStore((state) => state.setSaveAndpublishBtnState);
   const formElements = useAppStore((state) => state.formElements);
@@ -36,9 +38,7 @@ const Form = () => {
   };
 
   return (
-    // Max width and responsive margins simulate a clean floating tablet/form canvas
     <div className="w-full max-w-md h-[75vh] min-h-125 rounded-xl bg-white shadow-xl flex flex-col border border-slate-200/60 overflow-hidden">
-      
       {/* Header */}
       <div className="h-16 bg-blue-600 flex items-center justify-between px-6 shrink-0">
         <div className="flex items-center gap-4">
@@ -49,6 +49,7 @@ const Form = () => {
             className="h-4 w-auto cursor-pointer hover:scale-110 active:opacity-70 transition-transform duration-150"
           />
           <h2 className="text-white font-bold text-lg tracking-wide truncate max-w-60">
+            {/* 3. It will render the fetched name, or fall back to "Untitled Form" if undefined */}
             {formName || "Untitled Form"}
           </h2>
         </div>

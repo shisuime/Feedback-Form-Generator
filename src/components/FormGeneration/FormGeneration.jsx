@@ -3,12 +3,19 @@ import Modal from "../../common/Modal/Modal";
 import EditFeedbackTitlePopUp from "../EditFeedbackTitlePopUp/EditFeedbackTitlePopUp";
 import FieldConfig from "../FieldConfig/FieldConfig";
 import Form from "../Form/Form";
+import { useState } from "react";
 
 const FormGeneration = () => {
+
+  const [fieldConfigState,setFieldConfigState]=useState(false)
+
+  const fieldConfigStateHandler=()=>{
+    setFieldConfigState(!fieldConfigState)
+  }
+
   return (
     <>
       <Modal>
-      
         <EditFeedbackTitlePopUp />
       </Modal>
 
@@ -30,11 +37,11 @@ const FormGeneration = () => {
         <aside className="w-80 min-h-0 bg-white border-l border-slate-200 flex flex-col relative z-10 shrink-0 shadow-sm">
           {/* Scrollable area inside the panel so configurations never overflow the viewport */}
           <div className="flex-1 overflow-y-auto divide-y divide-slate-100 min-h-0">
+            
+              <FieldConfig fieldConfigState={fieldConfigState} fieldConfigStateHandler={fieldConfigStateHandler}/>
+            
             <div className="p-5">
-              <FieldConfig />
-            </div>
-            <div className="p-5">
-              <CategoryFields />
+              <CategoryFields fieldConfigStateHandler={fieldConfigStateHandler} />
             </div>
           </div>
         </aside>

@@ -46,8 +46,7 @@ const FormsPanel = () => {
               >
                 <div className="text-center group-hover:text-blue-600 transition-colors duration-200 wrap-break-word w-full">
                   {formData.name}
-                </div>
-              
+                </div>            
               </div>
             ))}
 
