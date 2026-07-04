@@ -2,6 +2,17 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
 const useAppStore = create(devtools((set) => ({
+  forms:{},
+  initialiseForm:(id,namePayload) => set((state)=>({   
+    forms:{
+      ...state.forms,
+      [id]:{
+        name:namePayload
+      }
+
+    }
+  })),
+
   modalState: false,
   modalStateHandler: () => set((state) => ({ modalState: !state.modalState })),
 

@@ -33,9 +33,9 @@ const FormGeneration = () => {
             <div className="p-5">
               <FieldConfig />
             </div>
-            {/* <div className="p-5">
+            <div className="p-5">
               <CategoryFields />
-            </div> */}
+            </div>
           </div>
         </aside>
 

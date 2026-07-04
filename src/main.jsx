@@ -18,7 +18,7 @@ const appRouter = createBrowserRouter([
         element: <FormsPanel />,// done styling for this and its children
       },
       {
-        path: "/formGeneration",
+        path: "/formGeneration/:id",
         element: <FormGeneration />, 
       },
     ],
