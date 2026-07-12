@@ -6,12 +6,11 @@ import Form from "../Form/Form";
 import { useState } from "react";
 
 const FormGeneration = () => {
+  const [fieldConfigState, setFieldConfigState] = useState(false);
 
-  const [fieldConfigState,setFieldConfigState]=useState(false)
-
-  const fieldConfigStateHandler=()=>{
-    setFieldConfigState(!fieldConfigState)
-  }
+  const fieldConfigStateHandler = () => {
+    setFieldConfigState(!fieldConfigState);
+  };
 
   return (
     <>
@@ -19,30 +18,31 @@ const FormGeneration = () => {
         <EditFeedbackTitlePopUp />
       </Modal>
 
-     
-      
       <div className="flex-1 w-full flex relative min-h-0 overflow-hidden">
 
         {/* Canvas Area (Left Side) */}
-     
         <div className="flex-1 min-h-0 bg-slate-100 overflow-y-auto flex items-center justify-center p-8">
           <div className="w-full max-w-4xl flex items-center justify-center">
-            {/*--------------------- need arch design in store --------------------------------*/}
             <Form />
           </div>
         </div>
 
         {/* Tools Panel Sidebar (Right Side) */}
-     
         <aside className="w-80 min-h-0 bg-white border-l border-slate-200 flex flex-col relative z-10 shrink-0 shadow-sm">
-          {/* Scrollable area inside the panel so configurations never overflow the viewport */}
-          <div className="flex-1 overflow-y-auto divide-y divide-slate-100 min-h-0">
-            
-              <FieldConfig fieldConfigState={fieldConfigState} fieldConfigStateHandler={fieldConfigStateHandler}/>
-            
-            <div className="p-5">
-              <CategoryFields fieldConfigStateHandler={fieldConfigStateHandler} />
-            </div>
+          {/* View switcher container */}
+          <div className="flex-1 overflow-y-auto min-h-0">
+            {fieldConfigState ? (
+              // View A: Configuration Mode
+              <FieldConfig 
+                fieldConfigState={fieldConfigState} 
+                fieldConfigStateHandler={fieldConfigStateHandler}
+              />
+            ) : (
+              // View B: Category Selection Mode
+              <div className="p-5">
+                <CategoryFields fieldConfigStateHandler={fieldConfigStateHandler} />
+              </div>
+            )}
           </div>
         </aside>
 

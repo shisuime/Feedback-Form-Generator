@@ -1,69 +1,102 @@
-import backBlack from "../../assets/backBlack.png";
 import useAppStore from "../../store/appStore";
+import TextArea from "../TextArea/TextArea";
+import NumericRating from "../NumericRating/NumericRating";
+import StarRating from "../StartRating/StarRating";
+import SmileRating from "../SmileRating/SmileRating";
+import RadioButton from "../RadioButton/RadioButton";
 
-const FieldConfig = ({ fieldConfigState, fieldConfigStateHandler }) => {
-  // const fieldConfigState = useAppStore((state) => state.fieldConfigState);
-  // const fieldConfigStateHandler = useAppStore((state) => state.fieldConfigStateHandler);
+const CONFIG_MAPPING = {
+  "Textarea": TextArea,
+  "Single line input": TextArea,
+  "Numeric rating": NumericRating,
+  "Star rating": StarRating,
+  "Smiley rating": SmileRating,
+  "Radio button": RadioButton,
+  "Categories": RadioButton,
+};
+
+const FieldConfig = ({ fieldConfigStateHandler }) => {
   const fieldConfigType = useAppStore((state) => state.fieldConfigType);
-  const setFieldData = useAppStore((state) => state.setFieldData);
-  const dataFromFields = useAppStore((state) => state.dataFromFields);
-
+  const forms = useAppStore((state) => state.forms);
   
+  // Zustand Store Actions
+  const dataFromFields = useAppStore((state) => state.dataFromFields); // Staged values
+  const initialiseForm = useAppStore((state) => state.initialiseForm);
+  const addFieldToForm = useAppStore((state) => state.addFieldToForm);
 
-  const generateRandomId = (length = 8) => {
-    return "id_" + Math.random().toString(36).replace(/^.{2}/, "").slice(0, length);
-  };
+  if (!fieldConfigType) return null;
 
-  const saveBtnHandler = (name, label) => {
-    const ranId = generateRandomId();
-    setFieldData(ranId, name, label);
+  const ActiveFormConfiguration = CONFIG_MAPPING[fieldConfigType];
+  const activeFormId = Object.keys(forms)[0] || "default-form";
+
+  const handleGenericSave = () => {
+    // 1. Initialize form safety layout check
+    if (!forms[activeFormId]) {
+      initialiseForm(activeFormId, "My Custom Feedback Form");
+    }
+
+    // 2. Map data from global field staging slice & add type meta
+    const fieldDataPayload = {
+      id: `field_${Date.now()}`,
+      type: fieldConfigType,
+      ...(dataFromFields || {}),
+    };
+
+    // 3. Save into our target active schema array
+    addFieldToForm(activeFormId, fieldDataPayload);
+
+    // 4. Return to the side categories selection view panel
     fieldConfigStateHandler();
   };
-  if (!fieldConfigState) return null;
+
   return (
-    
-      <div className="absolute inset-0 bg-white z-30 flex flex-col justify-between shadow-xl animate-in slide-in-from-right duration-200">
-
-        {/* Content Scroller Layout */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-6">
-
-          {/* Header navigation bar layout */}
-          <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
-            <img
-              src={backBlack}
-              alt="back"
-              onClick={fieldConfigStateHandler}
-              className="cursor-pointer p-1 hover:bg-slate-100 rounded-full transition duration-150"
-            />
-            <span className="font-semibold text-sm text-slate-700">
-              Back to Fields Drawer
-            </span>
-          </div>
-
-          {/* Form Generation Component Injector Section Container */}
-          <div className="bg-slate-50/60 p-4 rounded-lg border border-slate-100">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Field Options</h4>
-            {fieldConfigType?.component}
-          </div>
-        </div>
-
-        {/* Persistent Sticky Bottom Action Toolbar Panel Control Blocks */}
-        <div className="p-4 bg-slate-50 border-t border-slate-200/80 flex items-center justify-end gap-3 shrink-0">
-          <button
-            onClick={fieldConfigStateHandler}
-            className="h-10 px-4 bg-white border border-slate-200 text-slate-600 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-slate-100 transition shadow-xs cursor-pointer"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={() => saveBtnHandler(fieldConfigType?.name, dataFromFields?.inputData)}
-            className="h-10 px-5 bg-blue-600 text-white rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-blue-700 transition shadow-sm cursor-pointer"
-          >
-            Save Field
-          </button>
+    <div className="p-5 flex flex-col gap-5 bg-white border-b border-slate-100">
+      {/* Header Panel with Close Action */}
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={fieldConfigStateHandler}
+          className="px-2.5 py-1 text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition"
+        >
+          back
+        </button>
+        <div>
+          <h4 className="text-sm font-bold text-slate-800">Field Options</h4>
+          <p className="text-xs text-slate-400">Editing {fieldConfigType} settings</p>
         </div>
       </div>
-    
+
+      {/* Dynamic Content Rendering Wrapper */}
+      <div className="mt-2 w-full">
+        {ActiveFormConfiguration ? (
+          <ActiveFormConfiguration 
+            formId={activeFormId} 
+            onClose={fieldConfigStateHandler} 
+            fieldConfigType={fieldConfigType}
+          />
+        ) : (
+          <div className="text-xs text-slate-400 italic">Configuration view unavailable.</div>
+        )}
+      </div>
+
+      {/* Shared Functional Interface Action Buttons */}
+      <div className="flex justify-end gap-2 pt-4 border-t border-slate-100 mt-4">
+        <button
+          type="button"
+          onClick={fieldConfigStateHandler}
+          className="px-4 py-2 text-xs font-bold text-slate-500 bg-slate-50 hover:bg-slate-100 rounded-xl transition"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          onClick={handleGenericSave}
+          className="px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm rounded-xl transition"
+        >
+          Save Field
+        </button>
+      </div>
+    </div>
   );
 };
 

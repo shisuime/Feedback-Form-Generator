@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom"; // Added useParams
+import { useParams, useNavigate } from "react-router-dom";
 import back from "../../assets/back.png";
 import edit from "../../assets/edit.png";
 import useAppStore from "../../store/appStore";
@@ -12,15 +12,17 @@ import {
 
 const Form = () => {
   const navigate = useNavigate();
-  const { id } = useParams(); 
+  const { id } = useParams(); // Dynamic Form ID from route path
 
-  const formName = useAppStore((state) => state.forms[id]?.name);
+  // Safely grab information related specifically to this form out of store maps
+  const activeForm = useAppStore((state) => state.forms[id]);
+  const formName = activeForm?.name;
+  const formElements = activeForm?.formElements || [];
 
   const modalStateHandler = useAppStore((state) => state.modalStateHandler);
   const setSaveAndpublishBtnState = useAppStore((state) => state.setSaveAndpublishBtnState);
-  const formElements = useAppStore((state) => state.formElements);
-  const setFormElements = useAppStore((state) => state.setFormElements);
-  const deleteField = useAppStore((state) => state.deleteField);
+  const setFormElementsForId = useAppStore((state) => state.setFormElementsForId);
+  const deleteFieldFromForm = useAppStore((state) => state.deleteFieldFromForm);
 
   const backButtonHandler = () => {
     navigate("/");
@@ -33,8 +35,10 @@ const Form = () => {
 
     const oldIndex = formElements.findIndex((e) => e.id === active.id);
     const newIndex = formElements.findIndex((e) => e.id === over.id);
-    
-    setFormElements(arrayMove(formElements, oldIndex, newIndex));
+
+    // Commit new order specifically to this layout ID context
+    const reorderedElements = arrayMove(formElements, oldIndex, newIndex);
+    setFormElementsForId(id, reorderedElements);
   };
 
   return (
@@ -49,7 +53,6 @@ const Form = () => {
             className="h-4 w-auto cursor-pointer hover:scale-110 active:opacity-70 transition-transform duration-150"
           />
           <h2 className="text-white font-bold text-lg tracking-wide truncate max-w-60">
-            {/* 3. It will render the fetched name, or fall back to "Untitled Form" if undefined */}
             {formName || "Untitled Form"}
           </h2>
         </div>
@@ -76,8 +79,8 @@ const Form = () => {
                   <TestComponent
                     key={e.id}
                     id={e.id}
-                    data={e.data}
-                    deleteFunc={() => deleteField(e.id)}
+                    element={e} // 💡 Pass the whole dynamic data payload here
+                    deleteFunc={() => deleteFieldFromForm(id, e.id)}
                   />
                 ))}
               </div>

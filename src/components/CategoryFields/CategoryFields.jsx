@@ -7,37 +7,30 @@ import singleLine from "../../assets/singleLine.png";
 import radioButton from "../../assets/radioButtons.png";
 import numericRating from "../../assets/numericRating.png";
 import categories from "../../assets/categories.png";
-import TextArea from "../TextArea/TextArea";
-import NumericRating from "../NumericRating/NumericRating";
-import StarRating from "../StartRating/StarRating";
-import SmileRating from "../SmileRating/SmileRating";
-import RadioButton from "../RadioButton/RadioButton";
 import ToggleableInput from "../../common/ToggleableInput/ToggleableInput";
 
-const CategoryFields = ({fieldConfigStateHandler}) => {
-  // const fieldConfigStateHandler = useAppStore((state) => state.fieldConfigStateHandler);
+const CategoryFields = ({ fieldConfigStateHandler }) => {
   const setFieldConfigType = useAppStore((state) => state.setFieldConfigType);
-  const dataFromFields = useAppStore((state) => state.dataFromFields);
-  const setdataFromFields = useAppStore((state) => state.setdataFromFields);
 
-  const plusButtonHandler = (name, component) => {
+  // Fix: Only accept and pass the string name to the store
+  const plusButtonHandler = (name) => {
     fieldConfigStateHandler();
-    setFieldConfigType(name, component);
+    setFieldConfigType(name); 
   };
 
+  // Fix: Remove the `component` property entirely from this tracking configuration array
   const categoriesArray = [
-    { name: "Textarea", object: textArea, component: <TextArea value={dataFromFields} setValue={setdataFromFields} /> },
-    { name: "Numeric rating", object: numericRating, component: <NumericRating /> },
-    { name: "Star rating", object: star, component: <StarRating /> },
-    { name: "Smiley rating", object: smile, component: <SmileRating /> },
-    { name: "Single line input", object: singleLine, component: <TextArea /> },
-    { name: "Radio button", object: radioButton, component: <RadioButton /> },
-    { name: "Categories", object: categories, component: <RadioButton /> },
+    { name: "Textarea", object: textArea },
+    { name: "Numeric rating", object: numericRating },
+    { name: "Star rating", object: star },
+    { name: "Smiley rating", object: smile },
+    { name: "Single line input", object: singleLine },
+    { name: "Radio button", object: radioButton },
+    { name: "Categories", object: categories },
   ];
 
   return (
     <div className="flex flex-col space-y-8 relative z-10">
-      
       {/* Title Section */}
       <div>
         <h3 className="text-lg font-bold text-slate-800 tracking-tight">Add Fields</h3>
@@ -65,7 +58,7 @@ const CategoryFields = ({fieldConfigStateHandler}) => {
             <img
               src={strictPlus}
               alt="plus"
-              onClick={() => plusButtonHandler(e.name, e.component)}
+              onClick={() => plusButtonHandler(e.name)} // Fix: only pass string
               className="w-5 h-5 cursor-pointer opacity-40 hover:opacity-100 hover:scale-115 transition-all duration-150"
             />
           </div>
