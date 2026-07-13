@@ -8,7 +8,7 @@ const SmileRating = () => {
   const setdataFromFields = useAppStore((state) => state.setdataFromFields);
 
   const [label, setLabel] = useState("");
-  const [smileyCount, setSmileyCount] = useState(5);
+  const [smileyCount, setSmileyCount] = useState(1);
   const [isRequired, setIsRequired] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -38,7 +38,7 @@ const SmileRating = () => {
       <GenericSelect 
         length={5} 
         value={smileyCount} 
-        onChange={(val) => setSmileyCount(Number(val))} 
+        onChange={(e) => setSmileyCount(e.target.value)} 
       />
 
       <ToggleableInput

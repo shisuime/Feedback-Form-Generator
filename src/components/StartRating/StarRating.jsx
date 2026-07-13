@@ -8,7 +8,7 @@ const StarRating = () => {
   const setdataFromFields = useAppStore((state) => state.setdataFromFields);
 
   const [label, setLabel] = useState("");
-  const [starCount, setStarCount] = useState(5);
+  const [starCount, setStarCount] = useState(1);
   const [isRequired, setIsRequired] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -38,7 +38,7 @@ const StarRating = () => {
       <GenericSelect 
         length={5} 
         value={starCount} 
-        onChange={(val) => setStarCount(Number(val))} 
+        onChange={(e) => setStarCount(e.target.value)} 
       />
 
       <ToggleableInput

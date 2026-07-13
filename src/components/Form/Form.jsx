@@ -41,6 +41,7 @@ const Form = () => {
     setFormElementsForId(id, reorderedElements);
   };
 
+  console.log(formElements,"formElements")
   return (
     <div className="w-full max-w-md h-[75vh] min-h-125 rounded-xl bg-white shadow-xl flex flex-col border border-slate-200/60 overflow-hidden">
       {/* Header */}

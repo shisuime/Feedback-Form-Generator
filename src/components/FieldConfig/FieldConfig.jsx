@@ -15,7 +15,8 @@ const CONFIG_MAPPING = {
   "Categories": RadioButton,
 };
 
-const FieldConfig = ({ fieldConfigStateHandler }) => {
+const FieldConfig = ({ fieldConfigStateHandler ,currentId}) => {
+  console.log({currentId})
   const fieldConfigType = useAppStore((state) => state.fieldConfigType);
   const forms = useAppStore((state) => state.forms);
   
@@ -27,7 +28,7 @@ const FieldConfig = ({ fieldConfigStateHandler }) => {
   if (!fieldConfigType) return null;
 
   const ActiveFormConfiguration = CONFIG_MAPPING[fieldConfigType];
-  const activeFormId = Object.keys(forms)[0] || "default-form";
+  const activeFormId = currentId
 
   const handleGenericSave = () => {
     // 1. Initialize form safety layout check

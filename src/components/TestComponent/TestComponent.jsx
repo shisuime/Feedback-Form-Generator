@@ -1,6 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Rating } from "@mui/material"; // Or use your own custom icon stars if preferred
+import { Rating } from "@mui/material"; 
 
 const TestComponent = ({ id, element, deleteFunc }) => {
   const {
@@ -37,14 +37,14 @@ const TestComponent = ({ id, element, deleteFunc }) => {
             type="text"
             readOnly
             disabled
-            placeholder="User response text line..."
+            placeholder="User response single line..."
             className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-400 focus:outline-none"
           />
         );
 
-      // 💡 Wrapped in curly braces to create an independent block scope
       case "Numeric rating": {
-        const boxCount = element.boxCount || 10;
+        // 💡 Force string numbers coming from custom selects into primitives
+        const boxCount = Number(element.inputData.boxCount) || 10;
         return (
           <div className="flex flex-wrap gap-1.5 mt-1">
             {Array.from({ length: boxCount }).map((_, idx) => (
@@ -59,17 +59,19 @@ const TestComponent = ({ id, element, deleteFunc }) => {
         );
       }
 
-      // 💡 Wrapped in curly braces
-      case "Star rating":
+      case "Star rating": {
+        // 💡 Convert string properties explicitly to safety integer representations
+        const maxStars = Number(element.inputData.starCount) || 5;
         return (
           <div className="flex items-center gap-1 mt-1 text-amber-400">
-            <Rating name="read-only-stars" value={0} max={element.starCount || 5} disabled readOnly size="small" />
+            <Rating name="read-only-stars" value={0} max={maxStars} disabled readOnly size="small" />
           </div>
         );
+      }
 
-      // 💡 Wrapped in curly braces
       case "Smiley rating": {
-        const smileyCount = element.smileyCount || 5;
+        // 💡 Convert layout structures to numeric types to fix array limits
+        const smileyCount = Number(element.inputData.smileyCount) || 5;
         return (
           <div className="flex items-center gap-2 mt-1 text-lg opacity-40 grayscale select-none">
             {Array.from({ length: smileyCount }).map((_, idx) => (
@@ -79,10 +81,9 @@ const TestComponent = ({ id, element, deleteFunc }) => {
         );
       }
 
-      // 💡 Wrapped in curly braces
       case "Radio button":
       case "Categories": {
-        const choices = element.options || ["Option 1", "Option 2"];
+        const choices = element.inputData.options || ["Option 1", "Option 2"];
         return (
           <div className="flex flex-col gap-2 mt-1">
             {choices.map((option, idx) => (
@@ -110,8 +111,8 @@ const TestComponent = ({ id, element, deleteFunc }) => {
       <div className="flex items-start justify-between gap-4">
         <div {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing flex-1 select-none">
           <label className="text-xs font-bold text-slate-700 tracking-wide flex items-center gap-1">
-            {element.label || "Untitled Field Question"}
-            {element.isRequired && <span className="text-rose-500 text-sm leading-none">*</span>}
+            {element.inputData.label || `Untitled ${element.type || "Field Question"}`}
+            {element.inputData.isRequired && <span className="text-rose-500 text-sm leading-none">*</span>}
           </label>
         </div>
 
@@ -119,13 +120,13 @@ const TestComponent = ({ id, element, deleteFunc }) => {
         <button
           type="button"
           onClick={(e) => {
-            e.stopPropagation(); // Stop DnD engine capturing clicks
+            e.stopPropagation(); 
             deleteFunc();
           }}
           className="text-slate-300 hover:text-rose-500 p-1 rounded-lg hover:bg-rose-50 transition-colors"
           title="Remove field"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+          <svg xmlns="http://www.w3.org/2000/xl" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>

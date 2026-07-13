@@ -1,12 +1,13 @@
 import { Select, MenuItem } from "@mui/material";
-import { useState } from "react";
 
-const GenericSelect = ({ length }) => {
-  const [value, setValue] = useState(1);
+// 💡 Accept value and onChange from the parent props
+const GenericSelect = ({ length, value, onChange }) => {
   const dummyarray = Array.from({ length: length }, (_, i) => i + 1);
+  
   return (
     <>
-      <Select value={value} onChange={(e) => setValue(e.target.value)}>
+      {/* 💡 Bind directly to the incoming props instead of local state */}
+      <Select value={value} onChange={onChange}>
         {dummyarray.map((event, index) => (
           <MenuItem key={index} value={event}>
             {event}

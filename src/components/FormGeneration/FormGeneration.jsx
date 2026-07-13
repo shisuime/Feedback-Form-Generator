@@ -4,8 +4,10 @@ import EditFeedbackTitlePopUp from "../EditFeedbackTitlePopUp/EditFeedbackTitleP
 import FieldConfig from "../FieldConfig/FieldConfig";
 import Form from "../Form/Form";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 const FormGeneration = () => {
+  const {id}=useParams()
   const [fieldConfigState, setFieldConfigState] = useState(false);
 
   const fieldConfigStateHandler = () => {
@@ -34,6 +36,7 @@ const FormGeneration = () => {
             {fieldConfigState ? (
               // View A: Configuration Mode
               <FieldConfig 
+                currentId={id}
                 fieldConfigState={fieldConfigState} 
                 fieldConfigStateHandler={fieldConfigStateHandler}
               />

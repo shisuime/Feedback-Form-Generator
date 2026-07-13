@@ -38,7 +38,7 @@ const NumericRating = () => {
       <GenericSelect 
         length={10} 
         value={boxCount} 
-        onChange={(val) => setBoxCount(Number(val))} 
+        onChange={(e) => setBoxCount(e.target.value)} 
       />
 
       <ToggleableInput
