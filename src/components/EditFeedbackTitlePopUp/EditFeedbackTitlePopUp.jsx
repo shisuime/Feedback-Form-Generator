@@ -1,31 +1,42 @@
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+
 import GenericInput from "../../common/GenericInput/GenericInput";
 import useAppStore from "../../store/appStore";
-import { useState } from "react";
 
 const EditFeedbackTitlePopUp = () => {
-  const formName = useAppStore((state) => state.formName);
-const setFormName = useAppStore((state) => state.setFormName);
-const modalStateHandler = useAppStore((state) => state.modalStateHandler);
+  const { id } = useParams();
 
-  const [nameValue, setNameValue] = useState(formName);
+  const form = useAppStore((state) =>
+  id ? state.forms[id] : undefined
+);
+  const updateFormName = useAppStore((state) => state.updateFormName);
+  const modalStateHandler = useAppStore((state) => state.modalStateHandler);
 
-  const createButtonHandler = () => {
+  const [nameValue, setNameValue] = useState(form?.name || "");
+
+ 
+
+
+  const saveButtonHandler = () => {
+    if (!id) return;
+
     if (nameValue.trim() === "") return;
 
-    setFormName(nameValue);
+    updateFormName(id, nameValue.trim());
     modalStateHandler();
   };
 
   const cancelButtonHandler = () => {
-    setNameValue(formName);
+    setNameValue(form?.name || "");
     modalStateHandler();
   };
 
   return (
     <div className="h-42.5 w-100 bg-white rounded-md flex flex-col justify-center gap-3 px-5">
-      
+
       <div className="text-black font-semibold text-2xl">
-        Create Feedback Form
+        Edit Feedback Form
       </div>
 
       <GenericInput
@@ -39,7 +50,7 @@ const modalStateHandler = useAppStore((state) => state.modalStateHandler);
 
       <div className="flex gap-5 justify-end">
         <button
-          onClick={createButtonHandler}
+          onClick={saveButtonHandler}
           className="font-extrabold text-base text-[#147051] cursor-pointer hover:opacity-80 transition"
         >
           SAVE
@@ -52,6 +63,7 @@ const modalStateHandler = useAppStore((state) => state.modalStateHandler);
           CANCEL
         </button>
       </div>
+
     </div>
   );
 };
