@@ -7,18 +7,39 @@ const CreateFormPopUp = () => {
   const [nameValue, setNameValue] = useState("");
   const navigate = useNavigate();
 
-  // Store variables
   const initialiseForm = useAppStore((state) => state.initialiseForm);
   const modalStateHandler = useAppStore((state) => state.modalStateHandler);
-  const setSaveAndpublishBtnState = useAppStore((state) => state.setSaveAndpublishBtnState);
+  const setSaveAndpublishBtnState = useAppStore(
+    (state) => state.setSaveAndpublishBtnState
+  );
 
-  const createButtonHandler = () => {
+  const createButtonHandler = async () => {
     if (nameValue.trim() === "") return;
-    const uniqueId = "form_" + Date.now();
-    initialiseForm(uniqueId, nameValue);
-    modalStateHandler();
-    setSaveAndpublishBtnState(true);
-    navigate(`/formGeneration/${uniqueId}`);
+
+    try {
+      const response = await fetch("http://localhost:5000/forms", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: nameValue,
+        }),
+      });
+
+      const data = await response.json();
+
+      initialiseForm(data.id, data.name);
+
+      modalStateHandler();
+
+      setSaveAndpublishBtnState(true);
+
+      navigate(`/formGeneration/${data.id}`);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to create form.");
+    }
   };
 
   const cancelButtonHandler = () => {
@@ -28,15 +49,13 @@ const CreateFormPopUp = () => {
 
   return (
     <div className="w-full max-w-md bg-white rounded-xl shadow-xl border border-slate-100 p-6 flex flex-col gap-5">
-      
-      {/* Title - Matched perfectly with FormsPanel layout fonts */}
+
       <div>
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
           Create Feedback Form
         </h2>
       </div>
 
-      {/* Input container wrapper */}
       <div className="w-full">
         <GenericInput
           type="text"
@@ -44,11 +63,10 @@ const CreateFormPopUp = () => {
           value={nameValue}
           onChange={(e) => setNameValue(e.target.value)}
           placeholder="Your Form Name"
-          className="type1 w-full" 
+          className="type1 w-full"
         />
       </div>
 
-      {/* Action Buttons */}
       <div className="flex justify-end items-center gap-4 pt-2">
         <button
           className="px-4 py-2 text-sm font-bold text-slate-500 hover:text-slate-800 rounded-lg hover:bg-slate-100 transition-colors duration-150 cursor-pointer"
@@ -64,7 +82,6 @@ const CreateFormPopUp = () => {
           CREATE
         </button>
       </div>
-
     </div>
   );
 };

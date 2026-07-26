@@ -31,6 +31,17 @@ const storeApi = (set) => ({
     forms,
   }),  
 
+  deleteForm: (id) =>
+  set((state) => {
+    const updatedForms = { ...state.forms };
+
+    delete updatedForms[id];
+
+    return {
+      forms: updatedForms,
+    };
+  }),
+
   updateFormName: (id, newName) =>
     set((state) => {
       if (!state.forms[id]) return state;

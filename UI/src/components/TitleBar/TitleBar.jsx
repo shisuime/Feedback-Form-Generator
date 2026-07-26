@@ -7,28 +7,35 @@ const TitleBar = () => {
 
   const forms = useAppStore((state) => state.forms);
 
-  const saveForm = () => {
-    if (!id) return;
+ const saveForm = async () => {
+  if (!id) return;
 
-    const form = forms[id];
+  const form = forms[id];
 
-    if (!form) {
-      alert("No form found.");
-      return;
+  if (!form) {
+    alert("No form found.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:5000/forms/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to save form");
     }
 
-    try {
-      localStorage.setItem(
-        `form_${id}`,
-        JSON.stringify(form)
-      );
-
-      alert("Draft saved successfully.");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to save draft.");
-    }
-  };
+    alert("Draft saved successfully.");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to save draft.");
+  }
+};
 
   return (
     <div className="fixed top-0 left-0 w-full h-16 bg-white flex items-center justify-between border-b border-slate-200/80 px-4 md:px-6 z-50">

@@ -23,16 +23,30 @@ const FormGeneration = () => {
   useEffect(() => {
     if (!id) return;
 
-    const savedForm = localStorage.getItem(`form_${id}`);
-
-    if (savedForm) {
+    const fetchForm = async () => {
       try {
-        hydrateForm(id, JSON.parse(savedForm));
+        const response = await fetch(`http://localhost:5000/forms/${id}`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch form");
+        }
+
+        const form = await response.json();
+
+        hydrateForm(id, {
+          name: form.name,
+          status: form.status,
+          createdBy: form.createdBy,
+          formElements: form.formElements,
+          createdAt: form.createdAt,
+        });
       } catch (err) {
-        console.error("Failed to load saved form", err);
+        console.error("Failed to load form", err);
       }
-    }
-  }, [id,hydrateForm]);
+    };
+
+    fetchForm();
+  }, [id, hydrateForm]);
 
   return (
     <>
